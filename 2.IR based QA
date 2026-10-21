@@ -1,0 +1,18 @@
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
+
+docs = [
+    "Python is a programming language",
+    "India is a country",
+    "Machine learning uses data"
+]
+
+question = input("Enter question: ")
+
+vectorizer = TfidfVectorizer()
+X = vectorizer.fit_transform(docs + [question])
+
+scores = cosine_similarity(X[-1], X[:-1])
+index = scores.argmax()
+
+print("Answer:", docs[index])
