@@ -1,0 +1,21 @@
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.decomposition import LatentDirichletAllocation
+
+docs = [
+    "python java programming code",
+    "python software programming",
+    "cricket football sports",
+    "football cricket players"
+]
+
+vectorizer = CountVectorizer()
+X = vectorizer.fit_transform(docs)
+
+lda = LatentDirichletAllocation(n_components=2, random_state=0)
+lda.fit(X)
+
+words = vectorizer.get_feature_names_out()
+
+for i, topic in enumerate(lda.components_):
+    top_words = topic.argsort()[-5:][::-1]
+    print("Topic", i + 1, ":", [words[j] for j in top_words])
