@@ -1,0 +1,11 @@
+import nltk
+from nltk.corpus import wordnet as wn
+
+nltk.download("wordnet")
+
+word = input("Enter word: ")
+
+for syn in wn.synsets(word):
+    print("Definition:", syn.definition())
+    print("Synonyms:", [l.name() for l in syn.lemmas()])
+    print()
